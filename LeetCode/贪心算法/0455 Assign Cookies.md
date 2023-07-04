@@ -12,6 +12,10 @@
 - 最后返回 child 指针的值，就是能满足的孩子的数量。
 
 ```c++
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
 int findContentChildren(vector<int>& children, vector<int>& cookies) {
     sort(children.begin(), children.end());
     sort(cookies.begin(), cookies.end());
@@ -22,11 +26,25 @@ int findContentChildren(vector<int>& children, vector<int>& cookies) {
     }
     return child;
 }
+
+int main() {
+	vector<int> children = {1,2,3};
+	vector<int> cookies = {1,1};
+	cout << findContentChildren(children, cookies) << endl;
+	return 0;
+}
 ```
 
 
 
 ```go
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
 func findContentChildren(children []int, cookies []int) int {
 	sort.Ints(children)
 	sort.Ints(cookies)
@@ -40,6 +58,10 @@ func findContentChildren(children []int, cookies []int) int {
 		}
 	}
 	return child
+}
+
+func main() {
+	fmt.Println(findContentChildren([]int{1, 2, 3}, []int{1, 1}))
 }
 ```
 
