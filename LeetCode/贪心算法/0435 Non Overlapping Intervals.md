@@ -12,36 +12,37 @@
 - 最后返回 removed 的值，就是最少需要移除的区间数量，用 n 减去 removed 就是最多能选择的区间数量。
 
 ```c++
-#include <iostream>
-#include <vector>
-#include <algorithm>
-using namespace std;
+#include <iostream> // 导入输入输出流头文件
+#include <vector> // 导入向量头文件
+#include <algorithm> // 导入算法头文件
+using namespace std; // 使用标准命名空间
 
-int eraseOverlapIntervals(vector<vector<int>>& intervals) {
-    if (intervals.empty()) {
-        return 0;
+int eraseOverlapIntervals(vector<vector<int>>& intervals) { // 定义一个函数，参数是一个二维整数向量的引用 intervals，返回值是一个整数
+    if (intervals.empty()) { // 如果 intervals 为空，表示没有区间
+        return 0; // 直接返回 0
     }
-    int n = intervals.size();
-    sort(intervals.begin(), intervals.end(), [](vector<int>& a, vector<int>& b)
+    int n = intervals.size(); // 声明一个变量 n，赋值为 intervals 的大小，表示区间的个数
+    sort(intervals.begin(), intervals.end(), [](vector<int>& a, vector<int>& b) // 对 intervals 按照右端点升序排序，使用 lambda 表达式作为比较函数
     {
-        return a[1] < b[1];
+        return a[1] < b[1]; // 如果 a 的右端点小于 b 的右端点，返回 true，否则返回 false
     });
-    int removed = 0, prev = intervals[0][1];
-    for (int i = 1; i < n; ++i) {
-        if (intervals[i][0] < prev) {
-            ++removed;
-        } else {
-            prev = intervals[i][1];
+    int removed = 0, prev = intervals[0][1]; // 声明两个变量 removed 和 prev，分别表示移除的区间个数和上一个保留的区间的右端点，初始分别为 0 和 intervals 的第一个区间的右端点
+    for (int i = 1; i < n; ++i) { // 遍历 intervals 中的每个区间，从第二个开始，用变量 i 表示索引
+        if (intervals[i][0] < prev) { // 如果当前区间的左端点小于上一个保留的区间的右端点，说明有重叠
+            ++removed; // 将 removed 加一，表示移除当前区间
+        } else { // 否则说明没有重叠
+            prev = intervals[i][1]; // 将 prev 更新为当前区间的右端点，表示保留当前区间
         }
     }
-    return removed;
+    return removed; // 返回 removed，表示最少需要移除多少个区间
 }
 
-int main() {
-    vector<vector<int>> intervals = {{1,2},{2,3},{3,4},{1,3}};
-    cout << eraseOverlapIntervals(intervals) << endl;
-    return 0;
+int main() { // 定义主函数
+    vector<vector<int>> intervals = {{1,2},{2,3},{3,4},{1,3}}; // 定义一个二维向量 intervals，并初始化为 {{1,2},{2,3},{3,4},{1,3}}
+    cout << eraseOverlapIntervals(intervals) << endl; // 调用 eraseOverlapIntervals 函数，并输出结果，换行
+    return 0; // 返回 0，表示程序正常结束
 }
+
 ```
 
 ```go

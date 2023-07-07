@@ -17,69 +17,68 @@
 - 最后用一个内置的函数 accumulate 来求和糖果数组，得到最少需要的糖果数量。
 
 ```c++
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+#include <iostream> // 导入输入输出流头文件
+#include <vector> // 导入向量头文件
+#include <algorithm> // 导入算法头文件
+#include <numeric> // 导入数值算法头文件
 
-using namespace std;
+using namespace std; // 使用标准命名空间
 
-int candy(vector<int> &ratings) {
-    int size = ratings.size();
-    if (size < 2) {
-        return size;
+int candy(vector<int> &ratings) { // 定义一个函数，参数是一个整数向量的引用 ratings，返回值是一个整数
+    int size = ratings.size(); // 声明一个变量 size，赋值为 ratings 的大小，表示孩子的个数
+    if (size < 2) { // 如果 size 小于 2，表示没有孩子或者只有一个孩子
+        return size; // 直接返回 size，表示需要的糖果数
     }
-    vector<int> candies(size, 1);
-    for (int i = 1; i < size; ++i) {
-        if (ratings[i] > ratings[i - 1]) {
-            candies[i] = candies[i - 1] + 1;
+    vector<int> candies(size, 1); // 创建一个和 ratings 等长的整数向量 candies，并初始化每个元素为 1，表示每个孩子分配的糖果数
+    for (int i = 1; i < size; ++i) { // 从左到右遍历 ratings 中的每个元素，从第二个开始，用变量 i 表示索引
+        if (ratings[i] > ratings[i - 1]) { // 如果当前孩子的评分高于前一个孩子的评分
+            candies[i] = candies[i - 1] + 1; // 将 candies[i] 更新为 candies[i-1] 加一，表示比前一个孩子多分配一个糖果
         }
     }
-    for (int i = size - 2; i >= 0; --i) {
-        if (ratings[i] > ratings[i + 1] && candies[i] <= candies[i+1] ) {
-            candies[i] = candies[i+1] + 1;
+    for (int i = size - 2; i >= 0; --i) { // 从右到左遍历 ratings 中的每个元素，从倒数第二个开始，用变量 i 表示索引
+        if (ratings[i] > ratings[i + 1] && candies[i] <= candies[i+1] ) { // 如果当前孩子的评分高于后一个孩子的评分，并且当前孩子分配的糖果数不多于后一个孩子的糖果数
+            candies[i] = candies[i+1] + 1; // 将 candies[i] 更新为 candies[i+1] 加一，表示比后一个孩子多分配一个糖果
         }
     }
-    return accumulate(candies.begin(), candies.end(), 0);
+    return accumulate(candies.begin(), candies.end(), 0); // 返回 candies 中所有元素的和，表示总共需要的糖果数
 }
 
-int main() {
-    vector<int> ratings = {1,0,2};
-    cout << candy(ratings) << endl;
-    return 0;
+int main() { // 定义主函数
+    vector<int> ratings = {1,0,2}; // 定义一个向量 ratings，并初始化为 {1,0,2}
+    cout << candy(ratings) << endl; // 调用 candy 函数，并输出结果，换行
+    return 0; // 返回 0，表示程序正常结束
 }
 ```
 
 
 
 ```go
-package main
+package main // 声明包名为 main
 
-import "fmt"
+import "fmt" // 导入 fmt 包，用于输出
 
-func candy(ratings []int) int {
-	candies := make([]int, len(ratings))
-	for i := 1; i < len(ratings); i++ {
-		if ratings[i] > ratings[i-1] {
-			candies[i] += candies[i-1] + 1
+func candy(ratings []int) int { // 定义一个函数，参数是一个整数切片 ratings，返回值是一个整数
+	candies := make([]int, len(ratings)) // 创建一个和 ratings 等长的整数切片 candies，用于存储每个孩子分配的糖果数
+	for i := 1; i < len(ratings); i++ { // 从左到右遍历 ratings 中的每个元素，从第二个开始，用变量 i 表示索引
+		if ratings[i] > ratings[i-1] { // 如果当前孩子的评分高于前一个孩子的评分
+			candies[i] += candies[i-1] + 1 // 将 candies[i] 更新为 candies[i-1] 加一，表示比前一个孩子多分配一个糖果
 		}
 	}
-	for i := len(ratings) - 2; i >= 0; i-- { 
-		if ratings[i] > ratings[i+1] && candies[i] <= candies[i+1] { 
-			candies[i] = candies[i+1] + 1 
+	for i := len(ratings) - 2; i >= 0; i-- { // 从右到左遍历 ratings 中的每个元素，从倒数第二个开始，用变量 i 表示索引
+		if ratings[i] > ratings[i+1] && candies[i] <= candies[i+1] { // 如果当前孩子的评分高于后一个孩子的评分，并且当前孩子分配的糖果数不多于后一个孩子的糖果数
+			candies[i] = candies[i+1] + 1 // 将 candies[i] 更新为 candies[i+1] 加一，表示比后一个孩子多分配一个糖果
 		}
 	}
-	total := 0
-	for _, candy := range candies {
-		total += candy + 1
+	total := 0 // 声明一个变量 total，表示总共需要的糖果数，初始为 0
+	for _, candy := range candies { // 遍历 candies 中的每个元素，用变量 candy 表示值
+		total += candy + 1 // 将 total 加上 candy 加一，表示每个孩子至少需要一个糖果
 	}
-	return total
+	return total // 返回 total
 }
 
-func main() {
-	fmt.Println(candy([]int{1, 0, 2}))
+func main() { // 定义主函数
+	fmt.Println(candy([]int{1, 0, 2})) // 调用 candy 函数，并输出结果
 }
-
 ```
 
 把所有孩子的糖果数初始化为1；

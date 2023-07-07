@@ -12,57 +12,59 @@
 - 最后返回 child 指针的值，就是能满足的孩子的数量。
 
 ```c++
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <iostream> // 导入输入输出流头文件
+#include <vector> // 导入向量头文件
+#include <algorithm> // 导入算法头文件
 
-int findContentChildren(vector<int>& children, vector<int>& cookies) {
-    sort(children.begin(), children.end());
-    sort(cookies.begin(), cookies.end());
-    int child = 0, cookie = 0;
-    while (child < children.size() && cookie < cookies.size()) {
-       if (children[child] <= cookies[cookie]) ++child;
-       ++cookie;
+int findContentChildren(vector<int>& children, vector<int>& cookies) { // 定义一个函数，参数是两个整数向量的引用 children 和 cookies，返回值是一个整数
+    sort(children.begin(), children.end()); // 对 children 向量进行升序排序
+    sort(cookies.begin(), cookies.end()); // 对 cookies 向量进行升序排序
+    int child = 0, cookie = 0; // 声明两个变量 child 和 cookie，分别表示当前分配的孩子和饼干的索引，初始都为 0
+    while (child < children.size() && cookie < cookies.size()) { // 当 child 和 cookie 都没有超过向量的大小时，循环执行
+       if (children[child] <= cookies[cookie]) ++child; // 如果当前孩子的胃口小于等于当前饼干的大小，说明可以满足这个孩子，将 child 加一
+       ++cookie; // 不管是否满足孩子，都将 cookie 加一，表示分配下一个饼干
     }
-    return child;
+    return child; // 返回 child，表示最多可以满足多少个孩子
 }
 
-int main() {
-	vector<int> children = {1,2,3};
-	vector<int> cookies = {1,1};
-	cout << findContentChildren(children, cookies) << endl;
-	return 0;
+int main() { // 定义主函数
+	vector<int> children = {1,2,3}; // 定义一个向量 children，并初始化为 {1,2,3}
+	vector<int> cookies = {1,1}; // 定义一个向量 cookies，并初始化为 {1,1}
+	cout << findContentChildren(children, cookies) << endl; // 调用 findContentChildren 函数，并输出结果，换行
+	return 0; // 返回 0，表示程序正常结束
 }
+
 ```
 
 
 
 ```go
-package main
+package main // 声明包名为 main
 
 import (
-	"fmt"
-	"sort"
+	"fmt" // 导入 fmt 包，用于输出
+	"sort" // 导入 sort 包，用于排序
 )
 
-func findContentChildren(children []int, cookies []int) int {
-	sort.Ints(children)
-	sort.Ints(cookies)
-	child, cookie := 0, 0
-	for child < len(children) && cookie < len(cookies) {
-		if cookies[cookie] >= children[child] {
-			cookie++
-			child++
-		} else {
-			cookie++
+func findContentChildren(children []int, cookies []int) int { // 定义一个函数，参数是两个整数切片 children 和 cookies，返回值是一个整数
+	sort.Ints(children) // 对 children 切片进行升序排序
+	sort.Ints(cookies) // 对 cookies 切片进行升序排序
+	child, cookie := 0, 0 // 声明两个变量 child 和 cookie，分别表示当前分配的孩子和饼干的索引，初始都为 0
+	for child < len(children) && cookie < len(cookies) { // 当 child 和 cookie 都没有超过切片的长度时，循环执行
+		if cookies[cookie] >= children[child] { // 如果当前饼干的大小大于等于当前孩子的胃口，说明可以满足这个孩子
+			cookie++ // 将 cookie 加一，表示分配下一个饼干
+			child++ // 将 child 加一，表示满足下一个孩子
+		} else { // 否则
+			cookie++ // 将 cookie 加一，表示分配下一个饼干
 		}
 	}
-	return child
+	return child // 返回 child，表示最多可以满足多少个孩子
 }
 
-func main() {
-	fmt.Println(findContentChildren([]int{1, 2, 3}, []int{1, 1}))
+func main() { // 定义主函数
+	fmt.Println(findContentChildren([]int{1, 2, 3}, []int{1, 1})) // 调用 findContentChildren 函数，并输出结果
 }
+
 ```
 
 
