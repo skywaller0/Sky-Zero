@@ -1,4 +1,4 @@
-# [77. Combinations](https://leetcode.com/problems/assign-cookies/)
+# [77. Combinations](https://leetcode.com/problems/combinations/)
 
 代码中的主函数`combine`接受两个整数n和k作为参数，然后定义一个二维向量容器`ans`用于存储结果，一个一维向量容器`comb`用于存储当前的组合，一个整数变量`count`用于记录当前组合中的元素个数。然后调用辅函数`backtracking`来生成所有可能的组合，并将它们存储在`ans`中，最后返回`ans`。辅函数`backtracking`接受六个参数：二维向量容器`ans`的引用，一维向量容器`comb`的引用，整数变量`count`的引用，当前遍历的位置`pos`，整数n和k。它的基本思路是：
 
