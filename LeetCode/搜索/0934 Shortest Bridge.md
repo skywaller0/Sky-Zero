@@ -1,4 +1,4 @@
-# [933. Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/)
+# [934. Shortest Bridge](https://leetcode.com/problems/shortest-bridge/)
 
 最短桥问题是指在一个n×n的二进制矩阵grid中，1表示陆地，0表示水域。一个岛屿是一组四方向相连的1，不与其他1相连。grid中恰好有两个岛屿。你可以把0变成1，使得两个岛屿连接成一个岛屿。返回你必须翻转的0的最小数目
 
